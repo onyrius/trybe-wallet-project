@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
     state = {
       // email: '',
       password: '',
@@ -11,14 +12,19 @@ export default class LoginForm extends Component {
     handleOnChange = ({ target: { value, name } }) => this.setState({
       [name]: value,
     }, () => {
-      const { password, isDisable } = this.state;
+      const { password } = this.state;
       const MAXLENGTH = 6;
-      if (password.length < MAXLENGTH) return isDisable;
-      return !isDisable;
+      if (password.length >= MAXLENGTH) {
+        this.setState({ isDisable: false });
+      } else if (password.length < MAXLENGTH) {
+        this.setState({ isDisable: true });
+      }
     });
 
     render() {
-      const { email, password, isDisable } = this.props;
+      const { email, password, isDisable } = this.state;
+      console.log('this.state', this.state);
+      // console.log('props LoginForm', this.props);
       return (
         <div>
           <h1 className="title">Trybe Wallet</h1>
@@ -31,6 +37,7 @@ export default class LoginForm extends Component {
                 name="email"
                 id="loginEmail"
                 value={ email }
+                onChange={ this.handleOnChange }
               />
             </label>
             <label htmlFor="password">
@@ -41,16 +48,17 @@ export default class LoginForm extends Component {
                 name="password"
                 id="password"
                 value={ password }
+                onChange={ this.handleOnChange }
               />
             </label>
 
-            <input
+            <button
               className="btn-login"
               type="submit"
-              value="Entrar"
               disabled={ isDisable }
-              onChange={ this.handleOnChange }
-            />
+            >
+              Entrar
+            </button>
 
           </form>
 
@@ -59,8 +67,13 @@ export default class LoginForm extends Component {
     }
 }
 
-LoginForm.propTypes = {
+/* LoginForm.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   isDisable: PropTypes.bool.isRequired,
-};
+}; */
+
+/* const mapStateToProps = state => ({
+    email: state.myReducer.state}); */
+
+export default connect()(LoginForm);
