@@ -4,26 +4,33 @@ import { connect } from 'react-redux';
 
 class LoginForm extends Component {
     state = {
-      // email: '',
+      email: '',
       password: '',
       isDisable: true,
     }
 
+    /** Source: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
+     * /\S+@\S+\.\S+/ ===> (qualquer string @ qualquer string. qualquer string)/
+    */
     handleOnChange = ({ target: { value, name } }) => this.setState({
       [name]: value,
     }, () => {
-      const { password } = this.state;
+      const { password, email } = this.state;
       const MAXLENGTH = 6;
-      if (password.length >= MAXLENGTH) {
+      if (password.length >= MAXLENGTH && /\S+@\S+\.\S+/.test(email)) {
         this.setState({ isDisable: false });
       } else if (password.length < MAXLENGTH) {
         this.setState({ isDisable: true });
       }
     });
 
+    handleOnClick = (event) => {
+      event.preventDefault();
+    }
+
     render() {
       const { email, password, isDisable } = this.state;
-      console.log('this.state', this.state);
+      // console.log('this.state', this.state);
       // console.log('props LoginForm', this.props);
       return (
         <div>
@@ -56,6 +63,7 @@ class LoginForm extends Component {
               className="btn-login"
               type="submit"
               disabled={ isDisable }
+              onClick={ this.handleOnClick }
             >
               Entrar
             </button>
