@@ -2,8 +2,8 @@
 export const INSERT_EMAIL = 'INSERT_EMAIL';
 
 const loginEmail = (email) => ({
-  email,
   type: { INSERT_EMAIL },
+  email,
 });
 
 export default loginEmail;
