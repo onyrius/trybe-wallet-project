@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export class Header extends Component {
   render() {
     console.log(this.props);
+    const { email } = this.props;
     return (
       <div className="header-container">
         <h1 className="wallet-title">TrybeWallet</h1>
@@ -12,7 +13,7 @@ export class Header extends Component {
           <p data-testid="email-field">
             E-mail:
             {' '}
-            { 'setEmail' }
+            { email }
           </p>
           <p data-testid="total-field">total: 0</p>
           <p data-testid="header-currency-field">BRL</p>
@@ -21,6 +22,10 @@ export class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  email: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   email: state.user.email,

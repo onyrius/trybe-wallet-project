@@ -33,9 +33,8 @@ export class Login extends Component {
       // console.log(this.props);
       const { email } = this.state;
       const { history, emailDispatch } = this.props;
-      emailDispatch(this.setState({ email }));
-      /* console.log(emailDispatch(email));
-      console.log(email); */
+      console.log(emailDispatch(email));
+      console.log(email);
       history.push('/carteira');
     }
 
@@ -72,7 +71,7 @@ export class Login extends Component {
 
             <button
               className="btn-login"
-              type="submit"
+              type="button"
               disabled={ isDisable }
               onClick={ this.handleOnClick }
             >
@@ -94,8 +93,8 @@ Login.propTypes = {
 };
 
 /* const mapStateToProps = (state) => ({
-  email: state.user.email }); */
-
+  email: state.user.email,
+}); */
 const mapDispatchToProps = (dispatch) => ({
   emailDispatch: (email) => dispatch(loginEmail(email)) });
 
