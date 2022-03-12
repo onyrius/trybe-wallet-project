@@ -8,7 +8,7 @@ export class Header extends Component {
     const { email } = this.props;
     return (
       <div className="header-container">
-        <h1 className="wallet-title">TrybeWallet</h1>
+        <h1 className="wallet-title">My Wallet</h1>
         <section className="user-Infos">
           <p data-testid="email-field">
             E-mail:

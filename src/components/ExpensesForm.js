@@ -4,13 +4,15 @@ export default class ExpensesForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expensesValueInput: 0,
+      expensesValueInput: '',
+      descriptionInput: '',
+      methodInput: '',
+      taInput: '',
+      currency: '',
     };
   }
 
-  handleOnChange = ({ target: { value, name } }) => this.setState({
-    [name]: value,
-  });
+  handleOnChange = ({ target: { value, name } }) => this.setState({ [name]: value })
 
   // handleOnClick = () => {
   // console.log(this.props);
@@ -23,7 +25,7 @@ export default class ExpensesForm extends Component {
   //   };
 
   render() {
-    const { expensesValueInput } = this.state;
+    const { expensesValueInput, descriptionInput, methodInput, taInput, currency } = this.state;
     return (
       <div>
         <form className="expenses-container">
@@ -31,8 +33,8 @@ export default class ExpensesForm extends Component {
             Valor:
             <input
               data-testid="value-input"
-              name="expensesValue"
-              id="expensesValue"
+              name="expensesValueInput"
+              id="expensesValueInput"
               type="number"
               value={ expensesValueInput }
               onChange={ this.handleOnChange }
@@ -45,7 +47,7 @@ export default class ExpensesForm extends Component {
               data-testid="currency-input"
               id="currencyInput"
             >
-              <option value="moeda">currency</option>
+              <option name="currencyInput" value={ currency }>BRL</option>
             </select>
           </label>
 
@@ -54,6 +56,9 @@ export default class ExpensesForm extends Component {
             <select
               data-testid="method-input"
               id="methodInput"
+              name="methodInput"
+              value={ methodInput }
+              onChange={ this.handleOnChange }
             >
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
@@ -62,10 +67,14 @@ export default class ExpensesForm extends Component {
           </label>
 
           <label htmlFor="tagInput">
-            Forma de pagamento:
+            Categoria:
             <select
               data-testid="tag-input"
               id="tagInput"
+              name="taInput"
+              value={ taInput }
+              onChange={ this.handleOnChange }
+
             >
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
@@ -79,16 +88,17 @@ export default class ExpensesForm extends Component {
             <input
               data-testid="description-input"
               id="descriptionInput"
+              name="descriptionInput"
+              value={ descriptionInput }
+              onChange={ this.handleOnChange }
             />
           </label>
-
-          <button
+          Adicionar despesa
+          {/*    <button
             className="btn-login"
             type="button"
             onClick={ this.handleOnClick }
-          >
-            Adicionar despesa
-          </button>
+          /> */}
         </form>
       </div>
     );
