@@ -48,7 +48,13 @@ export default class ExpensesForm extends Component {
               data-testid="currency-input"
               id="currencyInput"
             >
-              <option name="currencyInput" value={ currency }>BRL</option>
+              <option
+                name="currencyInput"
+                value={ currency }
+                onChange={ this.handleOnChange }
+              >
+                BRL
+              </option>
             </select>
           </label>
 
