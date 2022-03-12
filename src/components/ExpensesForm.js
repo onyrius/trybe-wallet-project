@@ -25,7 +25,8 @@ export default class ExpensesForm extends Component {
   //   };
 
   render() {
-    const { expensesValueInput, descriptionInput, methodInput, taInput, currency } = this.state;
+    const { expensesValueInput,
+      descriptionInput, methodInput, taInput, currency } = this.state;
     return (
       <div>
         <form className="expenses-container">
