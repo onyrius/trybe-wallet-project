@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export class Header extends Component {
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const { email } = this.props;
     return (
       <div className="header-container">
