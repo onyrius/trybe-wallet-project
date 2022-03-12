@@ -10,7 +10,7 @@ const user = (state = INITIAL_STATE_USER, action) => {
   // console.log('action', action);
   switch (action.type) {
   case INSERT_EMAIL:
-    return action.email;
+    return { email: action.email };
   default:
     return state;
   }

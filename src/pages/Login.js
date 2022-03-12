@@ -28,13 +28,13 @@ export class Login extends Component {
       }
     });
 
-    handleOnClick = (event) => {
-      event.preventDefault();
+    handleOnClick = () => {
       // console.log(this.props);
       const { email } = this.state;
-      const { history, emailDispatch } = this.props;
-      console.log(emailDispatch(email));
-      console.log(email);
+      const { history, dispatch } = this.props;
+      dispatch(loginEmail(email));
+      /* console.log(emailDispatch(email));
+      console.log(email); */
       history.push('/carteira');
     }
 
@@ -86,7 +86,7 @@ export class Login extends Component {
 }
 
 Login.propTypes = {
-  emailDispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -95,7 +95,7 @@ Login.propTypes = {
 /* const mapStateToProps = (state) => ({
   email: state.user.email,
 }); */
-const mapDispatchToProps = (dispatch) => ({
-  emailDispatch: (email) => dispatch(loginEmail(email)) });
+/* const mapDispatchToProps = (dispatch) => ({
+  emailDispatch: (email) => dispatch(loginEmail(email)) }); */
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(/* null, mapDispatchToProps */)(Login);
