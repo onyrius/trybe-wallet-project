@@ -63,3 +63,8 @@
   align-self: center;
   font-size: 2vmax;
 }
+
+.expenses-container {
+  display: flex;
+  flex-direction: column;
+}
