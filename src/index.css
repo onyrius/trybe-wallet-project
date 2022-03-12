@@ -22,3 +22,17 @@ code {
   align-self: center;
   width: 10%;
 }
+
+.header-container {
+  display: flex;
+  justify-content: space-around
+}
+
+.wallet-title {
+  font-size: 4vmax;
+}
+
+.user-Infos {
+  font-size: 2vmax;
+  align-self: center;
+}

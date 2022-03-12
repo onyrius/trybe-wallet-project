@@ -33,9 +33,9 @@ export class Login extends Component {
       // console.log(this.props);
       const { email } = this.state;
       const { history, emailDispatch } = this.props;
-      emailDispatch(email);
-      console.log(emailDispatch(email));
-      console.log(email);
+      emailDispatch(this.setState({ email }));
+      /* console.log(emailDispatch(email));
+      console.log(email); */
       history.push('/carteira');
     }
 
