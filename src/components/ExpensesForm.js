@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import TableExpenses from './TableExpenses';
+import { sendExpensesForms } from '../actions';
 
-export default class ExpensesForm extends Component {
+export class ExpensesForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,7 +12,7 @@ export default class ExpensesForm extends Component {
       expensesValueInput: '',
       descriptionInput: '',
       methodInput: 'Dinheiro',
-      taInput: 'Alimentação',
+      tagInput: 'Alimentação',
       currency: '',
     };
   }
@@ -21,12 +24,13 @@ export default class ExpensesForm extends Component {
   handleOnChange = ({ target: { value, name } }) => this.setState({ [name]: value })
 
  handleOnClick = () => {
-   console.log('enviou forms');
+   const { dispatch } = this.props;
+   dispatch(sendExpensesForms(this.state));
  }
 
  render() {
    const { expensesValueInput,
-     descriptionInput, methodInput, taInput, currency, id } = this.state;
+     descriptionInput, methodInput, tagInput, currency, id } = this.state;
    return (
      <div>
        <form className="expenses-container">
@@ -78,8 +82,8 @@ export default class ExpensesForm extends Component {
            <select
              data-testid="tag-input"
              id="tagInput"
-             name="taInput"
-             value={ taInput }
+             name="tagInput"
+             value={ tagInput }
              onChange={ this.handleOnChange }
 
            >
@@ -118,3 +122,19 @@ export default class ExpensesForm extends Component {
    );
  }
 }
+
+ExpensesForm.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+/* const mapStateToProps = (state) => ({
+  email: state.wallet.email,
+  id: state.wallet.id,
+  expensesValueInput: state.wallet.expensesValueInput,
+  descriptionInput: state.wallet.descriptionInput,
+  methodInput: state.wallet.methodInput,
+  tagInput: state.wallet.tagInput,
+  currency: state.wallet.currency,
+}); */
+
+export default connect()(ExpensesForm);

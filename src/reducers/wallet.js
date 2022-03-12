@@ -1,4 +1,14 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+import {
+  /* ADD_EXPENSE_ID,
+  ADD_EXPENSE_VALUE,
+  ADD_EXPENSE_DESCRIPTION,
+  ADD_METHOD,
+  ADD_TAG,
+  ADD_CURRENCY, */
+  SEND_EXPENSES_FORMS,
+} from '../actions';
+
 const INITIAL_STATE_WALLET = {
   currencies: [],
   expenses: [
@@ -7,15 +17,22 @@ const INITIAL_STATE_WALLET = {
       expensesValueInput: '',
       descriptionInput: '',
       methodInput: 'Dinheiro',
-      taInput: 'Alimentação',
+      tagInput: 'Alimentação',
       currency: '',
       exchangeRates: {},
     },
   ],
 };
 
-const wallet = (state = INITIAL_STATE_WALLET) => ({
-  state,
-});
+const wallet = (state = INITIAL_STATE_WALLET, action) => {
+  switch (action.type) {
+  case SEND_EXPENSES_FORMS:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.state] };
+  default:
+    return state;
+  }
+};
 
 export default wallet;
