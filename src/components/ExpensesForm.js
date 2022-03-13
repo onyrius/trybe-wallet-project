@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TableExpenses from './TableExpenses';
-import { fetchExchangeCurrencySuccess, sendExpensesForms } from '../actions';
+import {
+  fetchExchangeCurrencySuccess as fetchExchangeCurrencySuccessAction, sendExpensesForms }
+from '../actions';
+import apiExchange from '../services/apiExchange';
 
 const Alimentação = 'Alimentação';
 
@@ -21,17 +24,11 @@ export class ExpensesForm extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    const { fetchExchangeCurrencySuccess } = this.props;
+    apiExchange().then((response) => fetchExchangeCurrencySuccess(response));
   }
 
   handleOnChange = ({ target: { value, name } }) => this.setState({ [name]: value })
-
-  apiExchange = async () => {
-    const URL = 'https://economia.awesomeapi.com.br/json/all';
-    const exchangesRequest = await fetch(URL);
-    const exchangesResponseJSON = await exchangesRequest.json();
-    return exchangesResponseJSON;
-  }
 
  handleOnClick = async () => {
    const { dispatch } = this.props;
@@ -152,11 +149,13 @@ export class ExpensesForm extends Component {
 
 ExpensesForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  fetchExchangeCurrencySuccess: PropTypes.func.isRequired,
   // exchangeRates: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchExchangeCurrencySuccess: () => dispatch(fetchExchangeCurrencySuccess),
+  fetchExchangeCurrencySuccess: (payload) => (
+    dispatch(fetchExchangeCurrencySuccessAction(payload))),
 });
 
 export default connect(null, mapDispatchToProps)(ExpensesForm);
