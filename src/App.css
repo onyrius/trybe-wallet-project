@@ -59,12 +59,14 @@
   font-size: 4vmax;
 }
 
-.user-Infos {
+/* .user-Infos {
   align-self: center;
   font-size: 1.2vmax;
-}
+} */
+
 
 .expenses-container {
   display: flex;
   flex-direction: column;
 }
+
