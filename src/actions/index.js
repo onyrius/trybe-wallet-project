@@ -17,6 +17,11 @@ export const sendExpensesForms = (payload) => ({
   payload,
 });
 
+export const GET_CURRENCY_NAME = 'GET_CURRENCY_NAME';
+export const getCurrencyName = (objJson) => ({
+  type: GET_CURRENCY_NAME,
+  payload: Object.keys(objJson),
+});
 export const FETCH_EXCHANGE_CURRENCY = 'FETCH_EXCHANGE_CURRENCY';
 export const FETCH_EXCHANGE_CURRENCY_SUCCESS = 'FETCH_EXCHANGE_CURRENCY_SUCCESS';
 export const FETCH_EXCHANGE_CURRENCY_ERROR = 'FETCH_EXCHANGE_CURRENCY_ERROR';

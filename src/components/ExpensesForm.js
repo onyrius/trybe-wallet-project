@@ -27,13 +27,14 @@ export class ExpensesForm extends Component {
     fetchExchange();
   }
 
-  handleOnChange = ({ target: { value, name } }) => this.setState({ [name]: value })
+  handleOnChange = ({ target: { value, name } }) => this.setState({ [name]: value });
 
- handleOnClick = () => {
-   console.log('linha 33 - ExpensesForms ', this.props);
-   const { sendExpenses } = this.props;
+ handleOnClick = async () => {
+   /*  console.log('linha 33 - ExpensesForms ', this.props); */
+   const { sendExpenses, fetchExchange } = this.props;
    const state = { ...this.state };
-   this.setState({ exchangeRates: fetchExchangeCurrencyThunk() }, () => {
+   this.setState({ exchangeRates: await fetchExchange() }, () => {
+     // console.log(this.state.exchangeRates);
      this.setState({
        id: state.id + 1,
        expensesValueInput: '',
@@ -47,9 +48,14 @@ export class ExpensesForm extends Component {
  }
 
  render() {
+   const { currencies } = this.props;
    const { expensesValueInput,
      descriptionInput, methodInput, tagInput, currency /* exchangeRates */ } = this.state;
-   // console.log(typeof exchangeRates);
+   console.log(currencies);
+   /* const currenciesKeys = Object.keys(currencies);
+   const currenciesvalues = Object.values(currencies);
+   const currenciesList = Object.entries(currencies).forEach((key, value) => console.log(key, value)); */
+
    return (
      <div className="form-container">
        <form className="expenses-container">
@@ -70,19 +76,12 @@ export class ExpensesForm extends Component {
            <select
              data-testid="currency-input"
              id="currencyInput"
+             name="currencyInput"
              value={ currency }
              onChange={ this.handleOnChange }
            >
-             <option>
-               { currency }
-               {/* {
-                 exchangeRates.map((exchangeRate) => (
-                   <option key={ exchangeRate }>
-                     {' '}
-                     { exchangeRate }
-                   </option>))
-               } */}
-             </option>
+             {' '}
+             Suelen
            </select>
          </label>
 
@@ -150,8 +149,13 @@ export class ExpensesForm extends Component {
 ExpensesForm.propTypes = {
   sendExpenses: PropTypes.func.isRequired,
   fetchExchange: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
   // exchangeRates: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchExchange: () => (
@@ -159,4 +163,4 @@ const mapDispatchToProps = (dispatch) => ({
   sendExpenses: (state) => dispatch(sendExpensesForms(state)),
 });
 
-export default connect(null, mapDispatchToProps)(ExpensesForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
