@@ -33,7 +33,7 @@ export class ExpensesForm extends Component {
  handleOnClick = async () => {
    const { dispatch } = this.props;
    const state = { ...this.state };
-   this.setState({ exchangeRates: await this.apiExchange() }, () => {
+   this.setState({ exchangeRates: await apiExchange() }, () => {
      this.setState({
        id: state.id + 1,
        expensesValueInput: '',
@@ -51,7 +51,7 @@ export class ExpensesForm extends Component {
      descriptionInput, methodInput, tagInput, currency /* exchangeRates */ } = this.state;
    // console.log(typeof exchangeRates);
    return (
-     <div>
+     <div className="form-container">
        <form className="expenses-container">
          <label htmlFor="expensesValue">
            Valor:

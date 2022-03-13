@@ -23,3 +23,8 @@ export const fetchExchangeCurrencySuccess = (payload) => ({
   type: FETCH_EXCHANGE_CURRENCY_SUCCESS,
   payload,
 });
+
+export const fetchExchangeCurrency = (payload) => ({
+  type: FETCH_EXCHANGE_CURRENCY_SUCCESS,
+  payload,
+});
