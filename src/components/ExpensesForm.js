@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TableExpenses from './TableExpenses';
-import { sendExpensesForms } from '../actions';
+import { fetchExchangeCurrencySuccess, sendExpensesForms } from '../actions';
 
 const Alimentação = 'Alimentação';
 
@@ -21,7 +21,7 @@ export class ExpensesForm extends Component {
   }
 
   componentDidMount() {
-    console.log('oi');
+    console.log(this.props);
   }
 
   handleOnChange = ({ target: { value, name } }) => this.setState({ [name]: value })
@@ -156,7 +156,7 @@ ExpensesForm.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  
+  fetchExchangeCurrencySuccess: () => dispatch(fetchExchangeCurrencySuccess),
 });
 
-export default connect()(ExpensesForm);
+export default connect(null, mapDispatchToProps)(ExpensesForm);

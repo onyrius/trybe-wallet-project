@@ -18,7 +18,8 @@ export const sendExpensesForms = (payload) => ({
 export const FETCH_EXCHANGE_CURRENCY = 'FETCH_EXCHANGE_CURRENCY';
 export const FETCH_EXCHANGE_CURRENCY_SUCCESS = 'FETCH_EXCHANGE_CURRENCY_SUCCESS';
 export const FETCH_EXCHANGE_CURRENCY_ERROR = 'FETCH_EXCHANGE_CURRENCY_ERROR';
-export const fetchExchangeCurrency = (payload) => ({
-  type: SEND_EXPENSES_FORMS,
+
+export const fetchExchangeCurrencySuccess = (payload) => ({
+  type: FETCH_EXCHANGE_CURRENCY_SUCCESS,
   payload,
 });
