@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TableExpenses from './TableExpenses';
-import {
-  fetchExchangeCurrencySuccess as fetchExchangeCurrencySuccessAction, sendExpensesForms }
+import { fetchExchangeCurrencyThunk, sendExpensesForms }
 from '../actions';
-import apiExchange from '../services/apiExchange';
+// import apiExchange from '../services/apiExchange';
 
 const Alimentação = 'Alimentação';
 
@@ -24,16 +23,17 @@ export class ExpensesForm extends Component {
   }
 
   componentDidMount() {
-    const { fetchExchangeCurrencySuccess } = this.props;
-    apiExchange().then((response) => fetchExchangeCurrencySuccess(response));
+    const { fetchExchange } = this.props;
+    fetchExchange();
   }
 
   handleOnChange = ({ target: { value, name } }) => this.setState({ [name]: value })
 
- handleOnClick = async () => {
-   const { dispatch } = this.props;
+ handleOnClick = () => {
+   console.log('linha 33 - ExpensesForms ', this.props);
+   const { sendExpenses } = this.props;
    const state = { ...this.state };
-   this.setState({ exchangeRates: await apiExchange() }, () => {
+   this.setState({ exchangeRates: fetchExchangeCurrencyThunk() }, () => {
      this.setState({
        id: state.id + 1,
        expensesValueInput: '',
@@ -43,7 +43,7 @@ export class ExpensesForm extends Component {
        currency: '',
      });
    });
-   dispatch(sendExpensesForms(this.state));
+   sendExpenses(this.state);
  }
 
  render() {
@@ -148,14 +148,15 @@ export class ExpensesForm extends Component {
 }
 
 ExpensesForm.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  fetchExchangeCurrencySuccess: PropTypes.func.isRequired,
+  sendExpenses: PropTypes.func.isRequired,
+  fetchExchange: PropTypes.func.isRequired,
   // exchangeRates: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchExchangeCurrencySuccess: (payload) => (
-    dispatch(fetchExchangeCurrencySuccessAction(payload))),
+  fetchExchange: () => (
+    dispatch(fetchExchangeCurrencyThunk())),
+  sendExpenses: (state) => dispatch(sendExpensesForms(state)),
 });
 
 export default connect(null, mapDispatchToProps)(ExpensesForm);

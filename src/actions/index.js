@@ -1,4 +1,6 @@
 // Coloque aqui suas actions
+import apiExchange from '../services/apiExchange';
+
 export const INSERT_EMAIL = 'INSERT_EMAIL';
 
 // ------------Login-----------------------------------
@@ -24,7 +26,7 @@ export const fetchExchangeCurrencySuccess = (payload) => ({
   payload,
 });
 
-export const fetchExchangeCurrency = (payload) => ({
-  type: FETCH_EXCHANGE_CURRENCY_SUCCESS,
-  payload,
-});
+export const fetchExchangeCurrencyThunk = () => (dispatch) => {
+  apiExchange().then((response) => (
+    dispatch(fetchExchangeCurrencySuccess(response))));
+};
