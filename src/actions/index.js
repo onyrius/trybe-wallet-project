@@ -17,21 +17,35 @@ export const sendExpensesForms = (payload) => ({
   payload,
 });
 
-export const GET_CURRENCY_NAME = 'GET_CURRENCY_NAME';
+/* export const GET_CURRENCY_NAME = 'GET_CURRENCY_NAME';
 export const getCurrencyName = (objJson) => ({
   type: GET_CURRENCY_NAME,
   payload: Object.keys(objJson),
-});
+}); */
 export const FETCH_EXCHANGE_CURRENCY = 'FETCH_EXCHANGE_CURRENCY';
 export const FETCH_EXCHANGE_CURRENCY_SUCCESS = 'FETCH_EXCHANGE_CURRENCY_SUCCESS';
 export const FETCH_EXCHANGE_CURRENCY_ERROR = 'FETCH_EXCHANGE_CURRENCY_ERROR';
 
-export const fetchExchangeCurrencySuccess = (payload) => ({
-  type: FETCH_EXCHANGE_CURRENCY_SUCCESS,
+export const fetchExchangeCurrencyError = (payload) => ({
+  type: FETCH_EXCHANGE_CURRENCY_ERROR,
   payload,
 });
 
+export const fetchExchangeCurrencySuccess = (objJson) => ({
+  type: FETCH_EXCHANGE_CURRENCY_SUCCESS,
+  payload: Object.keys(objJson),
+});
+
+/* export const GET_EXCHANGE_RATES = 'GET_EXCHANGE_RATES';
+export const getExchangeRates = (payload) => ({
+  type: GET_EXCHANGE_RATES,
+  payload,
+});
+ */
 export const fetchExchangeCurrencyThunk = () => (dispatch) => {
-  apiExchange().then((response) => (
-    dispatch(fetchExchangeCurrencySuccess(response))));
+  apiExchange()
+    .then((response) => (dispatch(fetchExchangeCurrencySuccess(response))))
+    .catch((error) => {
+      dispatch(dispatch(fetchExchangeCurrencyError(error)));
+    });
 };

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TableExpenses from './TableExpenses';
 import { fetchExchangeCurrencyThunk, sendExpensesForms }
 from '../actions';
-// import apiExchange from '../services/apiExchange';
+import apiExchange from '../services/apiExchange';
 
 const Alimentação = 'Alimentação';
 
@@ -18,7 +18,7 @@ export class ExpensesForm extends Component {
       methodInput: 'Dinheiro',
       tagInput: Alimentação,
       currency: 'BRL',
-      exchangeRates: '',
+      exchangeRates: {},
     };
   }
 
@@ -31,17 +31,18 @@ export class ExpensesForm extends Component {
 
  handleOnClick = async () => {
    /*  console.log('linha 33 - ExpensesForms ', this.props); */
-   const { sendExpenses, fetchExchange } = this.props;
+   console.log('***this.props', this.props);
+   const { fetchExchange, sendExpenses } = this.props;
+   console.log('fetchExchange', fetchExchange);
    const state = { ...this.state };
-   this.setState({ exchangeRates: await fetchExchange() }, () => {
-     // console.log(this.state.exchangeRates);
+   this.setState({ exchangeRates: await apiExchange() }, () => {
      this.setState({
        id: state.id + 1,
        expensesValueInput: '',
        descriptionInput: '',
        methodInput: 'Dinheiro',
        tagInput: Alimentação,
-       currency: '',
+       currency: 'BRL',
      });
    });
    sendExpenses(this.state);
@@ -49,12 +50,10 @@ export class ExpensesForm extends Component {
 
  render() {
    const { currencies } = this.props;
+   console.log('***render ExpenseForm', this.props);
    const { expensesValueInput,
-     descriptionInput, methodInput, tagInput, currency /* exchangeRates */ } = this.state;
+     descriptionInput, methodInput, tagInput, currency } = this.state;
    console.log(currencies);
-   /* const currenciesKeys = Object.keys(currencies);
-   const currenciesvalues = Object.values(currencies);
-   const currenciesList = Object.entries(currencies).forEach((key, value) => console.log(key, value)); */
 
    return (
      <div className="form-container">
@@ -70,7 +69,6 @@ export class ExpensesForm extends Component {
              onChange={ this.handleOnChange }
            />
          </label>
-
          <label htmlFor="currencyInput">
            Moeda
            <select
@@ -80,8 +78,7 @@ export class ExpensesForm extends Component {
              value={ currency }
              onChange={ this.handleOnChange }
            >
-             {' '}
-             Suelen
+             <option>Moeda aqui</option>
            </select>
          </label>
 

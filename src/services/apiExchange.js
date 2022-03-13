@@ -3,6 +3,7 @@ const apiExchange = async () => {
   const exchangesRequest = await fetch(URL);
   const exchangesResponseJSON = await exchangesRequest.json();
   // console.log('****exchangesResponseJSON', exchangesResponseJSON);
+  // console.log('****exchangesResponseJSON values', Object.values(exchangesResponseJSON));
   return exchangesResponseJSON;
 };
 
