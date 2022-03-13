@@ -2,12 +2,7 @@
 import {
   FETCH_EXCHANGE_CURRENCY_ERROR,
   FETCH_EXCHANGE_CURRENCY_SUCCESS,
-  /* ADD_EXPENSE_ID,
-  ADD_EXPENSE_VALUE,
-  ADD_EXPENSE_DESCRIPTION,
-  ADD_METHOD,
-  ADD_TAG,
-  ADD_CURRENCY, */
+  // GET_EXCHANGE_RATES,
   SEND_EXPENSES_FORMS,
 } from '../actions';
 
@@ -33,10 +28,14 @@ const wallet = (state = INITIAL_STATE_WALLET, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.payload] };
+  /* case GET_EXCHANGE_RATES:
+    return {
+      ...state,
+      exchangeRates: action.payload }; */
   case FETCH_EXCHANGE_CURRENCY_SUCCESS:
     return {
       ...state,
-      currencies: action.payload,
+      currencies: Object.keys(action.payload),
     };
   case FETCH_EXCHANGE_CURRENCY_ERROR:
     return {

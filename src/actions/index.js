@@ -31,19 +31,20 @@ export const fetchExchangeCurrencyError = (payload) => ({
   payload,
 });
 
-export const fetchExchangeCurrencySuccess = (objJson) => ({
-  type: FETCH_EXCHANGE_CURRENCY_SUCCESS,
-  payload: Object.keys(objJson),
-});
-
 /* export const GET_EXCHANGE_RATES = 'GET_EXCHANGE_RATES';
 export const getExchangeRates = (payload) => ({
   type: GET_EXCHANGE_RATES,
   payload,
-});
- */
+}); */ // pega o objeto completo da api
+
+export const fetchExchangeCurrencySuccess = (payload) => ({
+  type: FETCH_EXCHANGE_CURRENCY_SUCCESS,
+  payload,
+}); // popula o currencies que esao strings
+
 export const fetchExchangeCurrencyThunk = () => (dispatch) => {
   apiExchange()
+    // .then((response) => (dispatch(getExchangeRates(response))))
     .then((response) => (dispatch(fetchExchangeCurrencySuccess(response))))
     .catch((error) => {
       dispatch(dispatch(fetchExchangeCurrencyError(error)));

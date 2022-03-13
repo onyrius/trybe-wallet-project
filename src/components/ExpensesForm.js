@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TableExpenses from './TableExpenses';
-import { fetchExchangeCurrencyThunk, sendExpensesForms }
+import { fetchExchangeCurrencyThunk, sendExpensesForms/*  getExchangeRates */ }
 from '../actions';
-import apiExchange from '../services/apiExchange';
 
 const Alimentação = 'Alimentação';
 
@@ -23,26 +22,26 @@ export class ExpensesForm extends Component {
   }
 
   componentDidMount() {
-    const { fetchExchange } = this.props;
+    const { fetchExchange/*  getExchanges */ } = this.props;
+
     fetchExchange();
   }
 
   handleOnChange = ({ target: { value, name } }) => this.setState({ [name]: value });
 
  handleOnClick = async () => {
-   /*  console.log('linha 33 - ExpensesForms ', this.props); */
    console.log('***this.props', this.props);
-   const { fetchExchange, sendExpenses } = this.props;
-   console.log('fetchExchange', fetchExchange);
+   const { sendExpenses, fetchExchange } = this.props;
+
    const state = { ...this.state };
-   this.setState({ exchangeRates: await apiExchange() }, () => {
+   this.setState({ exchangeRates: fetchExchange() }, () => {
      this.setState({
        id: state.id + 1,
        expensesValueInput: '',
        descriptionInput: '',
        methodInput: 'Dinheiro',
        tagInput: Alimentação,
-       currency: 'BRL',
+       currency: '',
      });
    });
    sendExpenses(this.state);
@@ -50,10 +49,10 @@ export class ExpensesForm extends Component {
 
  render() {
    const { currencies } = this.props;
-   console.log('***render ExpenseForm', this.props);
+   // console.log('***render ExpenseForm this.props', this.props);
    const { expensesValueInput,
      descriptionInput, methodInput, tagInput, currency } = this.state;
-   console.log(currencies);
+   // console.log(currencies);
 
    return (
      <div className="form-container">
@@ -64,7 +63,6 @@ export class ExpensesForm extends Component {
              data-testid="value-input"
              name="expensesValueInput"
              id="expensesValueInput"
-             type="number"
              value={ expensesValueInput }
              onChange={ this.handleOnChange }
            />
@@ -78,7 +76,21 @@ export class ExpensesForm extends Component {
              value={ currency }
              onChange={ this.handleOnChange }
            >
-             <option>Moeda aqui</option>
+             {
+               currencies === null
+                 ? <span>Loading</span>
+                 : currencies.map((currencyOption) => (
+                   <option
+                     data-testid={ currencyOption }
+                     key={ currencyOption }
+                     value={ currencyOption }
+                   >
+                     { currencyOption }
+
+                   </option>
+
+                 ))
+             }
            </select>
          </label>
 
@@ -146,17 +158,19 @@ export class ExpensesForm extends Component {
 ExpensesForm.propTypes = {
   sendExpenses: PropTypes.func.isRequired,
   fetchExchange: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // exchangeRates: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+/*  getExchanges: PropTypes.func.isRequired, */
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  exchangeRates: state.wallet.expenses[0].exchangeRates,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchExchange: () => (
     dispatch(fetchExchangeCurrencyThunk())),
+  // getExchanges: (payload) => dispatch((getExchangeRates(payload))),
   sendExpenses: (state) => dispatch(sendExpensesForms(state)),
 });
 
