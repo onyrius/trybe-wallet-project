@@ -16,7 +16,7 @@ export class ExpensesForm extends Component {
       currency: '',
       method: '',
       tag: '',
-      exchangeRates: '',
+      exchangeRates: {},
     };
   }
 
@@ -34,7 +34,13 @@ export class ExpensesForm extends Component {
    this.setState((prevState) => ({
      id: prevState.id + 1,
      exchangeRates: exchangeRatesapi,
-   }));
+   }), () => {
+     // console.log(this.states);
+     this.setState({
+       value: '',
+       currency: '',
+     });
+   });
    sendExpenses(this.state);
  }
 
@@ -154,6 +160,7 @@ ExpensesForm.propTypes = {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

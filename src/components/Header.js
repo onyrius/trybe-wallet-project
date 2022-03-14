@@ -6,9 +6,7 @@ export class Header extends Component {
   render() {
     // console.log(this.props);
     const { email, expenses } = this.props;
-    // console.log(expenses[0]);
-    const expensesObject = { ...expenses[0] };
-    console.log(expensesObject.value);
+    console.log(expenses);
 
     return (
       <div className="header-container">
@@ -20,7 +18,14 @@ export class Header extends Component {
             { email }
           </p>
           <p data-testid="total-field">
-            total: 0
+            total:
+            {/* { expenses === undefined
+              ? ''
+              : expenses.reduce((acc, {
+                currency,
+                value,
+                exchangeRates,
+              }) => acc + value * exchangeRates[currency].ask, 0).toFixed(2)} */}
           </p>
           <p data-testid="header-currency-field">BRL</p>
         </section>

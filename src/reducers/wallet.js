@@ -20,7 +20,6 @@ const wallet = (state = INITIAL_STATE_WALLET, action) => {
 
   case FETCH_EXCHANGE_CURRENCY_SUCCESS:
     return {
-      ...state,
       currencies: Object.keys(action.payload),
     };
   case FETCH_EXCHANGE_CURRENCY_ERROR:
