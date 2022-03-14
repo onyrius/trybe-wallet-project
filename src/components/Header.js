@@ -23,7 +23,7 @@ export class Header extends Component {
                 if (expense !== []) {
                   const { exchangeRates, currency, value } = expense;
                   const { ask } = exchangeRates[currency];
-                  return acc + Number(value) * Number(ask);
+                  return acc + Number(value) * Number(ask).toFixed(2);
                 }
                 if (expense === []) return acc;
                 return acc;
@@ -39,7 +39,7 @@ export class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -47,3 +47,6 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 export default connect(mapStateToProps, null)(Header);
+/** Source: projeto desenvolvido com a ajuda da Carol Só:
+ * https://github.com/tryber/sd-018-b-project-trybewallet/pull/24
+ */

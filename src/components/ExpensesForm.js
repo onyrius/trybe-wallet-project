@@ -168,3 +168,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
+/** Source: projeto desenvolvido com a ajuda da Carol Só:
+ * https://github.com/tryber/sd-018-b-project-trybewallet/pull/24
+ */

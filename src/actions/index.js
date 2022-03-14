@@ -22,7 +22,7 @@ export const FETCH_EXCHANGE_CURRENCY_ERROR = 'FETCH_EXCHANGE_CURRENCY_ERROR';
 
 export const fetchExchangeCurrencyError = (payload) => ({
   type: FETCH_EXCHANGE_CURRENCY_ERROR,
-  error: payload,
+  payload,
 });
 
 export const fetchExchangeCurrencySuccess = (payload) => ({
