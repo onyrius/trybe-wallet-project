@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class TableExpenses extends Component {
+export class TableExpenses extends Component {
   render() {
     /* console.log(this.props); */
+    /* const { expenses } = this.state;
+    console.log(expenses); */
     return (
+
       <table border="1">
         <tr>
           <th>Descrição</th>
@@ -31,3 +35,5 @@ export default class TableExpenses extends Component {
     );
   }
 }
+const mapStateToProps = (state) => console.log(state);
+export default connect(mapStateToProps)(TableExpenses);

@@ -18,14 +18,7 @@ export class Header extends Component {
             { email }
           </p>
           <p data-testid="total-field">
-            total:
-            {/* { expenses === undefined
-              ? ''
-              : expenses.reduce((acc, {
-                currency,
-                value,
-                exchangeRates,
-              }) => acc + value * exchangeRates[currency].ask, 0).toFixed(2)} */}
+            total:0
           </p>
           <p data-testid="header-currency-field">BRL</p>
         </section>
