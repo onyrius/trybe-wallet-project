@@ -15,10 +15,12 @@ const wallet = (state = INITIAL_STATE_WALLET, action) => {
   switch (action.type) {
   case SEND_EXPENSES_FORMS:
     return {
+      ...state,
       expenses: [...state.expenses, action.payload] };
 
   case FETCH_EXCHANGE_CURRENCY_SUCCESS:
     return {
+      ...state,
       currencies: Object.keys(action.payload),
     };
   case FETCH_EXCHANGE_CURRENCY_ERROR:
