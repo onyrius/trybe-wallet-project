@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TableExpenses from './TableExpenses';
-import { fetchExchangeCurrencyThunk, sendExpensesForms/*  getExchangeRates */ }
+import { fetchExchangeCurrencyThunk, sendExpensesForms, getExchangeRates }
 from '../actions';
+import apiExchange from '../services/apiExchange';
 
 const Alimentação = 'Alimentação';
 
@@ -16,8 +17,8 @@ export class ExpensesForm extends Component {
       descriptionInput: '',
       methodInput: 'Dinheiro',
       tagInput: Alimentação,
-      currency: 'BRL',
-      exchangeRates: {},
+      currency: '',
+      exchangeRates: '',
     };
   }
 
@@ -30,29 +31,24 @@ export class ExpensesForm extends Component {
   handleOnChange = ({ target: { value, name } }) => this.setState({ [name]: value });
 
  handleOnClick = async () => {
-   console.log('***this.props', this.props);
-   const { sendExpenses, fetchExchange } = this.props;
+   const { sendExpenses } = this.props;
+   console.log(await apiExchange);
+   this.setState((prevState) => ({
+     id: prevState.id + 1,
+     expensesValueInput: '',
+     descriptionInput: '',
+     methodInput: 'Dinheiro',
+     tagInput: Alimentação,
+     currency: '',
+   }));
 
-   const state = { ...this.state };
-   this.setState({ exchangeRates: fetchExchange() }, () => {
-     this.setState({
-       id: state.id + 1,
-       expensesValueInput: '',
-       descriptionInput: '',
-       methodInput: 'Dinheiro',
-       tagInput: Alimentação,
-       currency: '',
-     });
-   });
    sendExpenses(this.state);
  }
 
  render() {
    const { currencies } = this.props;
-   // console.log('***render ExpenseForm this.props', this.props);
    const { expensesValueInput,
      descriptionInput, methodInput, tagInput, currency } = this.state;
-   // console.log(currencies);
 
    return (
      <div className="form-container">
@@ -62,6 +58,7 @@ export class ExpensesForm extends Component {
            <input
              data-testid="value-input"
              name="expensesValueInput"
+             type="number"
              id="expensesValueInput"
              value={ expensesValueInput }
              onChange={ this.handleOnChange }
@@ -79,17 +76,20 @@ export class ExpensesForm extends Component {
              {
                currencies === null
                  ? <span>Loading</span>
-                 : currencies.map((currencyOption) => (
-                   <option
-                     data-testid={ currencyOption }
-                     key={ currencyOption }
-                     value={ currencyOption }
-                   >
-                     { currencyOption }
+                 : currencies
+                   .filter((currencyFilter) => currencyFilter !== 'USDT')
+                   .map((currencyOption) => (
+                     <option
+                       data-testid={ currencyOption }
+                       key={ currencyOption }
+                       value={ currencyOption }
+                       onChange={ this.handleOnChange }
+                     >
+                       { currencyOption }
 
-                   </option>
+                     </option>
 
-                 ))
+                   ))
              }
            </select>
          </label>
@@ -159,18 +159,15 @@ ExpensesForm.propTypes = {
   sendExpenses: PropTypes.func.isRequired,
   fetchExchange: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-/*  getExchanges: PropTypes.func.isRequired, */
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  exchangeRates: state.wallet.expenses[0].exchangeRates,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchExchange: () => (
-    dispatch(fetchExchangeCurrencyThunk())),
-  // getExchanges: (payload) => dispatch((getExchangeRates(payload))),
+  fetchExchange: () => (dispatch(fetchExchangeCurrencyThunk())),
+  getExchangeRatesProp: () => (dispatch(getExchangeRates())),
   sendExpenses: (state) => dispatch(sendExpensesForms(state)),
 });
 
