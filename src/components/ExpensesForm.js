@@ -13,7 +13,7 @@ export class ExpensesForm extends Component {
       id: -1,
       value: '',
       description: '',
-      currency: '',
+      currency: 'USD',
       method: '',
       tag: '',
       exchangeRates: {},
@@ -35,13 +35,12 @@ export class ExpensesForm extends Component {
      id: prevState.id + 1,
      exchangeRates: exchangeRatesapi,
    }), () => {
-     // console.log(this.states);
-     this.setState({
-       value: '',
-       currency: '',
-     });
    });
    sendExpenses(this.state);
+   this.setState({
+     value: '',
+     currency: 'USD',
+   });
  }
 
  render() {
@@ -67,12 +66,12 @@ export class ExpensesForm extends Component {
            <select
              data-testid="currency-input"
              id="currency"
-             name={ currency }
+             name="currency"
              value={ currency }
              onChange={ this.handleOnChange }
            >
              {
-               currencies === null
+               currencies === []
                  ? <span>Loading</span>
                  : currencies
                    .filter((currencyOption) => currencyOption !== 'USDT')
