@@ -6,7 +6,7 @@ export class Header extends Component {
   render() {
     // console.log(this.props);
     const { email, expenses } = this.props;
-    console.log(typeof expenses[0]);
+    // console.log(expenses[0]);
     const expensesObject = { ...expenses[0] };
     console.log(expensesObject.value);
 

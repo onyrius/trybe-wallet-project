@@ -16,7 +16,7 @@ const wallet = (state = INITIAL_STATE_WALLET, action) => {
   case SEND_EXPENSES_FORMS:
     return {
       ...state,
-      expenses: [...state.expenses, action.payload] };
+      expenses: [action.payload] };
 
   case FETCH_EXCHANGE_CURRENCY_SUCCESS:
     return {

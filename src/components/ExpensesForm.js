@@ -34,8 +34,7 @@ export class ExpensesForm extends Component {
    this.setState((prevState) => ({
      id: prevState.id + 1,
      exchangeRates: exchangeRatesapi,
-   }), () => this.setState(() => ({ value: 0 })));
-
+   }));
    sendExpenses(this.state);
  }
 
