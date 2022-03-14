@@ -5,8 +5,11 @@ import PropTypes from 'prop-types';
 export class Header extends Component {
   render() {
     // console.log(this.props);
-    const { email /* expenses */ } = this.props;
-    // const total =
+    const { email, expenses } = this.props;
+    console.log(typeof expenses[0]);
+    const expensesObject = { ...expenses[0] };
+    console.log(expensesObject.value);
+
     return (
       <div className="header-container">
         <h1 className="wallet-title">My Wallet</h1>
@@ -28,6 +31,8 @@ export class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf().isRequired,
+
 };
 
 const mapStateToProps = (state) => ({

@@ -17,20 +17,13 @@ export const sendExpensesForms = (payload) => ({
   payload,
 });
 
-export const FETCH_EXCHANGE_CURRENCY = 'FETCH_EXCHANGE_CURRENCY';
 export const FETCH_EXCHANGE_CURRENCY_SUCCESS = 'FETCH_EXCHANGE_CURRENCY_SUCCESS';
 export const FETCH_EXCHANGE_CURRENCY_ERROR = 'FETCH_EXCHANGE_CURRENCY_ERROR';
 
 export const fetchExchangeCurrencyError = (payload) => ({
   type: FETCH_EXCHANGE_CURRENCY_ERROR,
-  payload,
+  error: payload,
 });
-
-export const GET_EXCHANGE_RATES = 'GET_EXCHANGE_RATES';
-export const getExchangeRates = (payload) => ({
-  type: GET_EXCHANGE_RATES,
-  payload,
-}); // pega o objeto completo da api
 
 export const fetchExchangeCurrencySuccess = (payload) => ({
   type: FETCH_EXCHANGE_CURRENCY_SUCCESS,
