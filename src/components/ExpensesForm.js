@@ -6,24 +6,22 @@ import { fetchExchangeCurrencyThunk, sendExpensesForms, getExchangeRates }
 from '../actions';
 import apiExchange from '../services/apiExchange';
 
-const Alimentação = 'Alimentação';
-
 export class ExpensesForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: 0,
-      expensesValueInput: '',
-      descriptionInput: '',
-      methodInput: 'Dinheiro',
-      tagInput: Alimentação,
+      value: '',
+      description: '',
       currency: '',
+      method: '',
+      tag: '',
       exchangeRates: '',
     };
   }
 
   componentDidMount() {
-    const { fetchExchange/*  getExchanges */ } = this.props;
+    const { fetchExchange } = this.props;
 
     fetchExchange();
   }
@@ -32,23 +30,18 @@ export class ExpensesForm extends Component {
 
  handleOnClick = async () => {
    const { sendExpenses } = this.props;
-   console.log(await apiExchange);
+   const exchangeRatesapi = await apiExchange();
    this.setState((prevState) => ({
      id: prevState.id + 1,
-     expensesValueInput: '',
-     descriptionInput: '',
-     methodInput: 'Dinheiro',
-     tagInput: Alimentação,
-     currency: '',
-   }));
+     exchangeRates: exchangeRatesapi,
+   }), () => this.setState(() => ({ value: 0 })));
 
    sendExpenses(this.state);
  }
 
  render() {
    const { currencies } = this.props;
-   const { expensesValueInput,
-     descriptionInput, methodInput, tagInput, currency } = this.state;
+   const { value, description, currency, method, tag } = this.state;
 
    return (
      <div className="form-container">
@@ -57,10 +50,10 @@ export class ExpensesForm extends Component {
            Valor:
            <input
              data-testid="value-input"
-             name="expensesValueInput"
+             name="value"
              type="number"
-             id="expensesValueInput"
-             value={ expensesValueInput }
+             id="value"
+             value={ value }
              onChange={ this.handleOnChange }
            />
          </label>
@@ -69,7 +62,7 @@ export class ExpensesForm extends Component {
            <select
              data-testid="currency-input"
              id="currencyInput"
-             name="currencyInput"
+             name={ currency }
              value={ currency }
              onChange={ this.handleOnChange }
            >
@@ -83,7 +76,6 @@ export class ExpensesForm extends Component {
                        data-testid={ currencyOption }
                        key={ currencyOption }
                        value={ currencyOption }
-                       onChange={ this.handleOnChange }
                      >
                        { currencyOption }
 
@@ -100,7 +92,7 @@ export class ExpensesForm extends Component {
              data-testid="method-input"
              id="methodInput"
              name="methodInput"
-             value={ methodInput }
+             value={ method }
              onChange={ this.handleOnChange }
            >
              <option value="Dinheiro">Dinheiro</option>
@@ -115,7 +107,7 @@ export class ExpensesForm extends Component {
              data-testid="tag-input"
              id="tagInput"
              name="tagInput"
-             value={ tagInput }
+             value={ tag }
              onChange={ this.handleOnChange }
 
            >
@@ -133,7 +125,7 @@ export class ExpensesForm extends Component {
              data-testid="description-input"
              id="descriptionInput"
              name="descriptionInput"
-             value={ descriptionInput }
+             value={ description }
              onChange={ this.handleOnChange }
            />
          </label>
@@ -167,7 +159,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchExchange: () => (dispatch(fetchExchangeCurrencyThunk())),
-  getExchangeRatesProp: () => (dispatch(getExchangeRates())),
+  getExchangeRatesProp: (payload) => (dispatch(getExchangeRates(payload))),
   sendExpenses: (state) => dispatch(sendExpensesForms(state)),
 });
 
