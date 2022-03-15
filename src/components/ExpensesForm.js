@@ -6,6 +6,8 @@ import { fetchExchangeCurrencyThunk, sendExpensesForms }
 from '../actions';
 import apiExchange from '../services/apiExchange';
 
+const Alimentação = 'Alimentação';
+
 export class ExpensesForm extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,7 @@ export class ExpensesForm extends Component {
       description: '',
       currency: 'USD',
       method: '',
-      tag: '',
+      tag: Alimentação,
       exchangeRates: {},
     };
   }
@@ -40,6 +42,7 @@ export class ExpensesForm extends Component {
    this.setState({
      value: '',
      currency: 'USD',
+     tag: Alimentação,
    });
  }
 

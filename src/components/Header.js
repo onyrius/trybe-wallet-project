@@ -6,7 +6,16 @@ export class Header extends Component {
   render() {
     const { email, expenses } = this.props;
     // console.log(expenses);
-
+    const total = expenses.reduce((acc, expense) => {
+      if (expense !== []) {
+        const { exchangeRates, currency, value } = expense;
+        const { ask } = exchangeRates[currency];
+        return acc + Number(value).toFixed(2) * Number(ask).toFixed(2);
+      }
+      if (expense === []) return acc;
+      return acc;
+    }, 0);
+    console.log(this.props);
     return (
       <div className="header-container">
         <h1 className="wallet-title">My Wallet</h1>
@@ -17,17 +26,9 @@ export class Header extends Component {
             { email }
           </p>
           <p data-testid="total-field">
-            total
+            {''}
             {
-              expenses.reduce((acc, expense) => {
-                if (expense !== []) {
-                  const { exchangeRates, currency, value } = expense;
-                  const { ask } = exchangeRates[currency];
-                  return acc + Number(value) * Number(ask).toFixed(2);
-                }
-                if (expense === []) return acc;
-                return acc;
-              }, 0)
+              total
             }
           </p>
           <p data-testid="header-currency-field">BRL</p>

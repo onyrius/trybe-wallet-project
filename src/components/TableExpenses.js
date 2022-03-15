@@ -6,7 +6,7 @@ export class TableExpenses extends Component {
   render() {
     console.log(this.props);
     const { expenses } = this.props;
-    const { currency, description, id, method, tag, value } = expenses;
+    console.log(expenses);
 
     return (
       <div>
@@ -22,19 +22,43 @@ export class TableExpenses extends Component {
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
           </tr>
-          <tr>
-            <td>{description}</td>
-            <td>{tag}</td>
-            <td>{method}</td>
-            <td>{value}</td>
-            <td>{currency}</td>
-            <td>
-              {/* {valueExchanged} */}
-            </td>
-            <td />
-            <td>BRL</td>
-            <td id={ id } button={ id }>Editar/Excluir</td>
-          </tr>
+
+          {
+            expenses !== []
+              ? expenses.map((expenseList) => (
+
+                <tr key={ expenseList.id }>
+                  <td>{expenseList.description }</td>
+                  <td>{expenseList.tag}</td>
+                  <td>{expenseList.method}</td>
+                  <td>{Number(expenseList.value).toFixed(2)}</td>
+                  <td>
+                    {expenseList.exchangeRates[expenseList.currency].name
+                      .split('/')[0]}
+
+                  </td>
+                  <td>
+                    { Number(expenseList.exchangeRates[expenseList.currency].ask)
+                      .toFixed(2) }
+                  </td>
+                  <td>
+                    { Number(expenseList.value
+                      * expenseList.exchangeRates[expenseList.currency].ask).toFixed(2) }
+                  </td>
+                  <td>Real</td>
+                  <td
+                    id={ expenses.id }
+                    button={ expenses.id }
+                  >
+                    Editar/Excluir
+
+                  </td>
+                </tr>
+
+              ))
+              : ''
+          }
+
         </table>
       </div>
     );
