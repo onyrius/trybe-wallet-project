@@ -10,12 +10,12 @@ export class Header extends Component {
       if (expense !== []) {
         const { exchangeRates, currency, value } = expense;
         const { ask } = exchangeRates[currency];
-        return acc + Number(value).toFixed(2) * Number(ask).toFixed(2);
+        return acc + Number(value) * Number(ask);
       }
       if (expense === []) return acc;
       return acc;
     }, 0);
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="header-container">
         <h1 className="wallet-title">My Wallet</h1>
