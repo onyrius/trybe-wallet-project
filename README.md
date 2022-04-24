@@ -88,7 +88,7 @@ A página web irá consumir os dados da API do <a href='https://economia.awesome
 
  </p>
  
-### Status do projeto
+## Status do projeto
  
  <img src="status-TrybeWallet.png" />
 ### 🔗 Links
