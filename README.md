@@ -1,5 +1,5 @@
 
-# <img src="https://acegif.com/wp-content/gifs/coin-flip-47.gif" alt="moeda de ouro girando"  width="40"/>Trybe Wallet Project<img src="https://acegif.com/wp-content/gifs/coin-flip-47.gif" alt="moeda de ouro girando"  width="40"/>
+<h1 align="center"> <img src="https://acegif.com/wp-content/gifs/coin-flip-47.gif" alt="moeda de ouro girando"  width="40" align="center"/>Trybe Wallet Project<img src="https://acegif.com/wp-content/gifs/coin-flip-47.gif" alt="moeda de ouro girando"  width="40" align="center"/></h1>
 
 ##### Projeto desenvolvido durante a viagem ao Brasil. A emoção de aprender algo como Redux, ainda engatinhando no React, manejar uma viagem de quase 24 horas tendo um prazo para cumprir, é indescritível! Me faltam palavras para descrever como foi! Creio que a palavra _equilibrista_ define muito bem!! :sweat_smile:
 <br/>
