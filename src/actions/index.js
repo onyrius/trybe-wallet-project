@@ -17,6 +17,18 @@ export const sendExpensesForms = (payload) => ({
   payload,
 });
 
+export const EDIT_EXPENSES_FORMS = 'EDIT_EXPENSES_FORMS';
+export const editExpensesForms = (payload) => ({
+  type: EDIT_EXPENSES_FORMS,
+  payload,
+});
+
+export const DELETE_EXPENSES_FORMS = 'DELETE_EXPENSES_FORMS';
+export const deleteExpensesForms = (payload) => ({
+  type: DELETE_EXPENSES_FORMS,
+  payload,
+});
+
 export const FETCH_EXCHANGE_CURRENCY_SUCCESS = 'FETCH_EXCHANGE_CURRENCY_SUCCESS';
 export const FETCH_EXCHANGE_CURRENCY_ERROR = 'FETCH_EXCHANGE_CURRENCY_ERROR';
 

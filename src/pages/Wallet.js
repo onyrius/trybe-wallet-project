@@ -5,10 +5,12 @@ import Header from '../components/Header';
 class Wallet extends React.Component {
   render() {
     return (
-      <>
+
+      <section className="background-container-wallet">
+
         <Header />
         <ExpensesForm />
-      </>);
+      </section>);
   }
 }
 

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TableExpenses from './TableExpenses';
-import { fetchExchangeCurrencyThunk, sendExpensesForms }
+import { deleteExpensesForms, editExpensesForms,
+  fetchExchangeCurrencyThunk, sendExpensesForms }
 from '../actions';
 import apiExchange from '../services/apiExchange';
 
@@ -16,7 +17,7 @@ export class ExpensesForm extends Component {
       value: '',
       description: '',
       currency: 'USD',
-      method: '',
+      method: 'Dinheiro',
       tag: Alimentação,
       exchangeRates: {},
     };
@@ -24,7 +25,6 @@ export class ExpensesForm extends Component {
 
   componentDidMount() {
     const { fetchExchange } = this.props;
-
     fetchExchange();
   }
 
@@ -32,22 +32,52 @@ export class ExpensesForm extends Component {
 
  handleOnClick = async () => {
    const { sendExpenses } = this.props;
-   const exchangeRatesapi = await apiExchange();
-   this.setState((prevState) => ({
-     id: prevState.id + 1,
-     exchangeRates: exchangeRatesapi,
-   }), () => {
+   const { value } = this.state;
+   if (value === '') {
+     global.alert('Por favor, insira um valor válido');
+   } else {
+     const exchangeRatesapi = await apiExchange();
+     this.setState((prevState) => ({
+       id: prevState.id + 1,
+       exchangeRates: exchangeRatesapi,
+     }), () => {
+     });
+
+     sendExpenses(this.state);
+     this.setState({ value: '', currency: 'USD', tag: Alimentação, description: '',
+     });
+   }
+ }
+
+ editHandleOnClick = async () => {
+   const { editExpenses, newExpenses, expenses, expenseToEdit } = this.props;
+   // const { value, description, currency, method, tag, exchangeRates } = expenseToEdit[0];
+   this.setState(expenseToEdit[0]);
+   // eslint-disable-next-line react/prop-types
+   console.log(this.state);
+
+   this.handleOnChange = ({ target: { value: values, name } }) => this.setState({
+     [name]: values,
    });
-   sendExpenses(this.state);
+
+   console.log('obj para modificar', expenseToEdit[0]);
+   console.log(this.state);
+   // console.log('Objeto para acrescentar ao novo array', editedObject);
+   const editedList = [...expenses
+     // eslint-disable-next-line react/prop-types
+     .filter((expense) => expense.id !== expenseToEdit[0].id), this.state];
+   newExpenses(editedList);
+   editExpenses({});
    this.setState({
      value: '',
      currency: 'USD',
      tag: Alimentação,
+     description: '',
    });
  }
 
  render() {
-   const { currencies } = this.props;
+   const { currencies, isToEdit } = this.props;
    const { value, description, currency, method, tag } = this.state;
 
    return (
@@ -137,14 +167,30 @@ export class ExpensesForm extends Component {
            />
          </label>
 
-         <button
-           className="add-expenses"
-           type="button"
-           id="addExpenses"
-           onClick={ this.handleOnClick }
-         >
-           Adicionar despesa
-         </button>
+         {
+           isToEdit
+             ? (
+               <button
+                 className="edit-expenses"
+                 type="button"
+                 id="addExpenses"
+                 onClick={ this.editHandleOnClick }
+               >
+                 Editar Despesa
+               </button>
+             )
+
+             : (
+               <button
+                 className="add-expenses"
+                 type="button"
+                 id="addExpenses"
+                 onClick={ this.handleOnClick }
+               >
+                 Adicionar despesa
+               </button>
+             )
+         }
        </form>
 
        <TableExpenses />
@@ -155,19 +201,30 @@ export class ExpensesForm extends Component {
 }
 
 ExpensesForm.propTypes = {
-  sendExpenses: PropTypes.func.isRequired,
-  fetchExchange: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  editExpenses: PropTypes.func.isRequired,
+  expenseToEdit: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  expenses: PropTypes.shape({
+    filter: PropTypes.func.isRequired,
+  }).isRequired,
+  fetchExchange: PropTypes.func.isRequired,
+  isToEdit: PropTypes.bool.isRequired,
+  newExpenses: PropTypes.func.isRequired,
+  sendExpenses: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
+  isToEdit: state.wallet.edit,
+  expenseToEdit: state.wallet.expensesToEdit,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchExchange: () => (dispatch(fetchExchangeCurrencyThunk())),
   sendExpenses: (state) => dispatch(sendExpensesForms(state)),
+  editExpenses: (state) => dispatch(editExpensesForms(state)),
+  newExpenses: (state) => dispatch(deleteExpensesForms(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);

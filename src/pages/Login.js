@@ -43,43 +43,45 @@ export class Login extends Component {
       // console.log('this.state', this.state);
       // console.log('props Login', this.props);
       return (
-        <div>
-          <h1 className="title">Trybe Wallet</h1>
-          <form className="login-form-component">
-            <label htmlFor="loginEmail">
-              <input
-                data-testid="email-input"
-                placeholder="E-mail"
-                type="email"
-                name="email"
-                id="loginEmail"
-                value={ email }
-                onChange={ this.handleOnChange }
-              />
-            </label>
-            <label htmlFor="password">
-              <input
-                data-testid="password-input"
-                placeholder="Senha"
-                type="password"
-                name="password"
-                id="password"
-                value={ password }
-                onChange={ this.handleOnChange }
-              />
-            </label>
+        <div className="background-container">
+          <div className="login-container">
+            <h1 className="title">Trybe Wallet</h1>
+            <form className="login-form-component">
+              <label htmlFor="loginEmail">
+                <input
+                  className="email-input"
+                  data-testid="email-input"
+                  placeholder="E-mail"
+                  type="email"
+                  name="email"
+                  id="loginEmail"
+                  value={ email }
+                  onChange={ this.handleOnChange }
+                />
+              </label>
+              <label htmlFor="password">
+                <input
+                  data-testid="password-input"
+                  placeholder="Senha"
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={ password }
+                  onChange={ this.handleOnChange }
+                />
+              </label>
 
-            <button
-              className="btn-login"
-              type="button"
-              disabled={ isDisable }
-              onClick={ this.handleOnClick }
-            >
-              Entrar
-            </button>
+              <button
+                className="btn-login"
+                type="button"
+                disabled={ isDisable }
+                onClick={ this.handleOnClick }
+              >
+                Entrar
+              </button>
 
-          </form>
-
+            </form>
+          </div>
         </div>
       );
     }
