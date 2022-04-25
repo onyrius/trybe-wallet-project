@@ -91,6 +91,7 @@ A página web irá consumir os dados da API do <a href='https://economia.awesome
 ## Status do projeto
  
  <img src="status-TrybeWallet.png" />
+ 
 ### 🔗 Links
 
 [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/onyrius)
