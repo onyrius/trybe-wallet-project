@@ -1,7 +1,7 @@
 
 <h1 align="center"> <img src="https://acegif.com/wp-content/gifs/coin-flip-47.gif" alt="moeda de ouro girando"  width="40" align="center"/>Trybe Wallet Project<img src="https://acegif.com/wp-content/gifs/coin-flip-47.gif" alt="moeda de ouro girando"  width="40" align="center"/></h1>
 
-##### Projeto desenvolvido durante a viagem ao Brasil. A emoção de aprender algo como Redux, ainda engatinhando no React, manejar uma viagem de quase 24 horas tendo um prazo para cumprir, é indescritível! Me faltam palavras para descrever como foi! Creio que a palavra _equilibrista_ define muito bem!! :sweat_smile:
+##### Projeto desenvolvido durante a viagem ao Brasil. A emoção de aprender algo como Redux, ainda engatinhando no React, manejar uma viagem de quase 24 horas tendo um prazo para cumprir, é indescritível! Exato!! Me faltam palavras para descrever como foi! Creio que a palavra _equilibrista_ define muito bem!! :sweat_smile:
 <br/>
 
 ## Habilidades Desensolvidas
@@ -48,7 +48,7 @@ A página web irá consumir os dados da API do <a href='https://economia.awesome
 - Instale as dependências:
   - `npm install`
 - Inicialize o projeto:
-  - `npm start` (uma nova página deve abrir no seu navegador com um texto simples)
+  - `npm start` 
 
 ## Gif do projeto
 <img src="trybeWallet.gif" alt="gif da aplicação funcionando.">
