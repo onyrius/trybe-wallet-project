@@ -90,6 +90,8 @@ A página web irá consumir os dados da API do <a href='https://economia.awesome
  
 ## Status do projeto
  
+ <p>Obs: Após o prazo que a Trybe nos deu, consegui implementar 100% das funcionalidades propostas.</p> <br/>
+ 
  <img src="status-TrybeWallet.png" />
  
 ### 🔗 Links
