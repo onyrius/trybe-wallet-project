@@ -92,7 +92,7 @@ A página web irá consumir os dados da API do <a href='https://economia.awesome
  
 ## Status do projeto
  
- <em> Obs: Após o prazo que a Trybe nos deu, consegui implementar 100% das funcionalidades propostas: as funções de editar e deletar o gasto</em> 
+ ***Obs: Após o prazo que a Trybe nos deu, consegui implementar 100% das funcionalidades propostas: as funções de editar e deletar o gasto***
  
  <img src="status-TrybeWallet.png" />
  
